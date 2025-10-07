@@ -1,0 +1,63 @@
+<div class="checkout-container" *ngIf="cartItems.length > 0; else emptyCart">
+  <h2>Finaliser ma commande</h2>
+
+  <div class="checkout-grid">
+
+    <!-- 🧍 Informations utilisateur -->
+    <mat-card class="user-info">
+      <h3>Informations de livraison</h3>
+      <form>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nom complet</mat-label>
+          <input matInput [(ngModel)]="user.name" name="name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [(ngModel)]="user.email" name="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Adresse</mat-label>
+          <input matInput [(ngModel)]="user.address" name="address" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Ville</mat-label>
+          <input matInput [(ngModel)]="user.city" name="city">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Code Postal</mat-label>
+          <input matInput [(ngModel)]="user.postalCode" name="postalCode">
+        </mat-form-field>
+      </form>
+    </mat-card>
+
+    <!-- 🛒 Récapitulatif commande -->
+    <mat-card class="order-summary">
+      <h3>Récapitulatif</h3>
+
+      <div *ngFor="let item of cartItems" class="summary-item">
+        <img [src]="item.image" [alt]="item.name">
+        <div>
+          <p>{{ item.name }} (x{{ item.quantity }})</p>
+          <strong>{{ item.price * item.quantity }} €</strong>
+        </div>
+      </div>
+
+      <hr>
+      <h3>Total : {{ total }} €</h3>
+
+      <button mat-raised-button color="primary" (click)="confirmOrder()">Confirmer la commande</button>
+    </mat-card>
+
+  </div>
+</div>
+
+<ng-template #emptyCart>
+  <div class="empty-cart">
+    <h3>Votre panier est vide 🛒</h3>
+    <button mat-raised-button color="accent" routerLink="/shop">Retour à la boutique</button>
+  </div>
+</ng-template>

@@ -1,0 +1,8 @@
+<div class="success-container">
+  <h2>✅ Merci {{ name }} !</h2>
+  <p>Votre commande a été passée avec succès.</p>
+  <p><strong>Total payé :</strong> {{ total | currency:'EUR':'symbol':'1.2-2' }}</p>
+
+  <button mat-raised-button color="primary" (click)="goShop()">Retour à la boutique</button>
+
+</div>

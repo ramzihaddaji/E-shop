@@ -1,0 +1,39 @@
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.desktop-menu {
+  display: flex;
+  gap: 15px;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+  .mobile-menu {
+    display: inline-flex;
+  }
+}
+
+
+.active-link {
+  font-weight: bold;
+  color: #060606;
+
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+

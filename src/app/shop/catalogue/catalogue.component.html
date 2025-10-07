@@ -1,0 +1,44 @@
+<div class="catalogue-container">
+
+  <!-- Slider simple -->
+  <div class="slider">
+    <button class="nav-btn left" (click)="prevSlide()">&#10094;</button>
+
+    <div class="slides">
+      <img [src]="featuredProducts[currentSlide].image" [alt]="featuredProducts[currentSlide].name">
+      <div class="slider-info">
+        <h3>{{featuredProducts[currentSlide].name}}</h3>
+        <p>\${{featuredProducts[currentSlide].price}}</p>
+      </div>
+    </div>
+
+    <button class="nav-btn right" (click)="nextSlide()">&#10095;</button>
+  </div>
+
+  <!-- Filtres Catégories -->
+  <div class="categories">
+    <button mat-raised-button
+            *ngFor="let cat of categories"
+            (click)="filterCategory(cat)"
+            [color]="selectedCategory === cat ? 'primary' : 'accent'">
+      {{cat}}
+    </button>
+  </div>
+
+  <!-- Liste des produits -->
+  <div class="product-list">
+    <mat-card class="product-card" *ngFor="let product of filteredProducts">
+      <img mat-card-image [src]="product.image" [alt]="product.name">
+      <mat-card-content>
+        <h3>{{product.name}}</h3>
+        <p>\${{product.price}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="addToCart(product)">
+          Ajouter au panier
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>

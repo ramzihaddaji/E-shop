@@ -1,0 +1,38 @@
+<div class="cart-container" *ngIf="cartItems.length > 0; else emptyCart">
+
+  <h2>Mon Panier</h2>
+
+  <div class="cart-item" *ngFor="let item of cartItems">
+    <mat-card>
+      <div class="cart-item-content">
+        <img [src]="item.image" [alt]="item.name">
+        <div class="details">
+          <h3>{{ item.name }}</h3>
+          <p>Prix : {{ item.price }} €</p>
+
+          <div class="quantity-control">
+            <label>Quantité :</label>
+            <input type="number" [value]="item.quantity" (change)="updateQuantity(item, $event)" min="1">
+          </div>
+
+          <button mat-button color="warn" (click)="removeItem(item.id)">
+            <mat-icon>delete</mat-icon> Supprimer
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="cart-total">
+    <h3>Total : {{ totalPrice }} €</h3>
+    <button mat-raised-button color="primary" (click)="checkout()">Commander</button>
+  </div>
+
+</div>
+
+<ng-template #emptyCart>
+  <div class="empty-cart">
+    <h3>Votre panier est vide 🛒</h3>
+    <button mat-raised-button color="primary" routerLink="/shop">Retour à la boutique</button>
+  </div>
+</ng-template>

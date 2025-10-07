@@ -1,0 +1,22 @@
+.success-container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.success-container h2 {
+  color: #28a745;
+}
+
+.success-container button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.success-container button:hover {
+  background-color: #0056b3;
+}

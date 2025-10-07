@@ -1,0 +1,40 @@
+/* Styles globaux */
+:root {
+  --primary-color: #92a9c0;
+  --accent-color: #00ffd5;
+  --warn-color: #f44336;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Conteneur principal en flex column */
+body > app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header fixe en haut (optionnel si tu veux sticky) */
+app-header {
+  flex: 0 0 auto; /* hauteur automatique selon contenu */
+}
+
+/* Contenu principal qui prend tout l’espace restant */
+.main-content {
+  flex: 1 0 auto;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+/* Footer collé en bas */
+app-footer {
+  flex: 0 0 auto; /* hauteur automatique selon contenu */
+}

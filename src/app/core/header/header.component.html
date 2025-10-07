@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" style="position: sticky; top: 0; z-index: 1000;">
+  <span class="logo" routerLink="/" style="cursor: pointer;">E-Shop</span>
+
+  <span class="spacer"></span>
+
+  <!-- 🖥️ Menu Desktop -->
+  <nav class="desktop-menu">
+    <a mat-button routerLink="/shop" routerLinkActive="active-link">Boutique</a>
+    <a mat-button routerLink="/cart" routerLinkActive="active-link">
+      Panier
+      <span matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeOverlap="false"></span>
+    </a>
+    <a mat-button routerLink="/checkout" routerLinkActive="active-link">Paiement</a>
+    <a mat-button routerLink="/login" routerLinkActive="active-link">Connexion</a>
+    <a mat-button routerLink="/register" routerLinkActive="active-link">Créer un compte</a>
+  </nav>
+
+  <!-- 📱 Menu Mobile -->
+  <button mat-icon-button class="mobile-menu" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/shop">Boutique</button>
+    <button mat-menu-item routerLink="/cart">
+      Panier
+      <span matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeOverlap="false"></span>
+    </button>
+    <button mat-menu-item routerLink="/checkout">Paiement</button>
+    <button mat-menu-item routerLink="/login">Connexion</button>
+    <button mat-menu-item routerLink="/register">Créer un compte</button>
+  </mat-menu>
+</mat-toolbar>

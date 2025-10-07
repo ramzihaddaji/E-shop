@@ -1,0 +1,121 @@
+:root {
+  --primary-color: #2a4157; /* bleu */
+  --accent-color: #00ffd5;  /* orange */
+  --warn-color: #f44336;    /* rouge */
+  --background-color: #f9f9f9;
+  --text-color: #333;
+}
+
+.catalogue-container {
+  padding: 20px;
+  text-align: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Slider */
+.slider {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slides {
+  position: relative;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  animation: fadeIn 0.7s;
+}
+
+.slider-info {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  background: rgba(25, 118, 210, 0.8); /* primary-color avec opacité */
+  color: white;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Animation fade-in */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(25, 118, 210, 0.6); /* primary-color avec opacité */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.nav-btn:hover {
+  transform: translateY(-50%) scale(1.2);
+  background: var(--accent-color); /* accent-color au hover */
+}
+
+.nav-btn.left { left: 10px; }
+.nav-btn.right { right: 10px; }
+
+/* Catégories */
+.categories button {
+  margin: 0 5px 10px 5px;
+  font-weight: 500;
+  background-color: var(--accent-color);
+  color: white;
+  transition: all 0.3s;
+}
+
+.categories button:hover {
+  background-color: var(--primary-color);
+}
+
+.categories button[selected] {
+  background-color: var(--primary-color);
+}
+
+/* Produits */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.product-card {
+  width: 200px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-color: var(--primary-color);
+}
+
+.product-card img {
+  transition: transform 0.3s;
+}
+
+.product-card img:hover {
+  transform: scale(1.05);
+}

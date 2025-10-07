@@ -1,0 +1,157 @@
+/* === Reset de base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* === Couleurs globales === */
+:root {
+  --primary-color: #92a9c0;
+  --accent-color: #59779b;
+  --warn-color: #f44336;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+}
+
+
+/* === Navbar === */
+mat-toolbar {
+  background-color: var(--primary-color) !important;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+mat-toolbar .logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+mat-toolbar a {
+  text-decoration: none;
+  color: white;
+  margin: 0 10px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+mat-toolbar a:hover {
+  color: var(--accent-color);
+}
+
+/* === Boutons === */
+button, .mat-raised-button {
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+button:hover, .mat-raised-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.mat-raised-button[color="primary"] {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.mat-raised-button[color="accent"] {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.mat-raised-button[color="warn"] {
+  background-color: var(--warn-color);
+  color: white;
+}
+
+/* === Cartes produits et cards Angular Material === */
+mat-card {
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+mat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+mat-card img {
+  border-radius: 10px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+mat-card img:hover {
+  transform: scale(1.05);
+}
+
+/* === Sliders et images === */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* === Sections === */
+.main-content {
+  padding: 20px;
+  min-height: calc(100vh - 120px); /* header/footer */
+  background-color: var(--background-color);
+}
+
+/* === Footer === */
+footer {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+/* === Formulaires === */
+input, select, textarea {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  margin: 5px 0 15px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(25,118,210,0.5);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px;
+  }
+
+  mat-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  mat-toolbar a {
+    margin: 5px 0;
+  }
+
+  .product-list {
+    justify-content: center;
+  }
+}
