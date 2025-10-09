@@ -1,37 +1,44 @@
 <div class="catalogue-container">
 
-  <!-- Slider simple -->
-  <div class="slider">
-    <button class="nav-btn left" (click)="prevSlide()">&#10094;</button>
-
-    <div class="slides">
-      <img [src]="featuredProducts[currentSlide].image" [alt]="featuredProducts[currentSlide].name">
-      <div class="slider-info">
-        <h3>{{featuredProducts[currentSlide].name}}</h3>
-        <p>\${{featuredProducts[currentSlide].price}}</p>
+  <!-- Slider 3D -->
+  <div class="slider-3d" (mouseenter)="pauseRotate()" (mouseleave)="startAutoRotate()">
+    <div class="carousel" [style.transform]="getCarouselTransform()">
+      <div
+        class="slide"
+        *ngFor="let product of featuredProducts; let i = index"
+        [style.transform]="getSlideTransform(i)"
+      >
+        <img [src]="product.image" [alt]="product.name" />
+        <div class="slider-info">
+          <h3>{{ product.name }}</h3>
+          <p>${{ product.price }}</p>
+        </div>
       </div>
     </div>
-
-    <button class="nav-btn right" (click)="nextSlide()">&#10095;</button>
+    <!-- Manual Controls -->
+    <button class="slider-control prev" (click)="rotate(-1)">&#10094;</button>
+    <button class="slider-control next" (click)="rotate(1)">&#10095;</button>
   </div>
 
   <!-- Filtres Catégories -->
   <div class="categories">
-    <button mat-raised-button
-            *ngFor="let cat of categories"
-            (click)="filterCategory(cat)"
-            [color]="selectedCategory === cat ? 'primary' : 'accent'">
-      {{cat}}
+    <button
+      mat-raised-button
+      *ngFor="let cat of categories"
+      (click)="filterCategory(cat)"
+      [color]="selectedCategory === cat ? 'primary' : 'accent'"
+    >
+      {{ cat }}
     </button>
   </div>
 
   <!-- Liste des produits -->
   <div class="product-list">
     <mat-card class="product-card" *ngFor="let product of filteredProducts">
-      <img mat-card-image [src]="product.image" [alt]="product.name">
+      <img mat-card-image [src]="product.image" [alt]="product.name" />
       <mat-card-content>
-        <h3>{{product.name}}</h3>
-        <p>\${{product.price}}</p>
+        <h3>{{ product.name }}</h3>
+        <p>${{ product.price }}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="addToCart(product)">
@@ -40,5 +47,4 @@
       </mat-card-actions>
     </mat-card>
   </div>
-
 </div>

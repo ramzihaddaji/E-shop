@@ -1,82 +1,189 @@
+/*
+:root {
+  --primary-color: #4d5358;
+  --accent-color: #00ffd5;
+  --warn-color: #f44336;
+  --background-color: #353232;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --shadow-color: rgba(0,0,0,0.1);
+}
+*/
+/* Container principal */
 .cart-container {
   max-width: 900px;
-  margin: 30px auto;
+  margin: 40px auto;
   padding: 20px;
-  animation: fadeIn 0.5s;
+  background-color: var(--background-color);
+  border-radius: 15px;
+  animation: fadeIn 0.5s ease-in-out;
+  box-shadow: 0 8px 20px var(--shadow-color);
 }
 
+/* Cart item */
 .cart-item {
-  margin-bottom: 15px;
-  transition: transform 0.3s, opacity 0.3s;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.cart-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px var(--shadow-color);
+}
+
+/* Card style glass effect */
 .cart-item-content {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cart-item-content img {
   width: 120px;
   height: 120px;
-  border-radius: 10px;
+  border-radius: 12px;
   object-fit: cover;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cart-item-content img:hover {
-  transform: scale(1.05);
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: 0 8px 20px var(--shadow-color);
 }
 
+/* Détails du produit */
 .details {
   flex: 1;
   text-align: left;
 }
 
+.details h3 {
+  margin: 0 0 5px;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.details p {
+  margin: 0 0 10px;
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+/* Quantité */
 .quantity-control {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 5px 0;
+  margin: 8px 0;
 }
 
 input[type="number"] {
   width: 60px;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 6px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
+input[type="number"]:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Boutons supprimer */
+button[color="warn"] {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--warn-color);
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+button[color="warn"]:hover {
+  transform: scale(1.05);
+  background-color: var(--warn-color);
+  color: white;
+}
+
+/* Total panier */
 .cart-total {
-  margin-top: 20px;
+  margin-top: 25px;
   text-align: right;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  color: var(--primary-color);
 }
 
 .cart-total button {
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
 .cart-total button:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 20px var(--shadow-color);
 }
 
+/* Panier vide */
 .empty-cart {
   text-align: center;
   margin-top: 80px;
-  animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
+.empty-cart h3 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.empty-cart button {
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.empty-cart button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+/* Snackbar personnalisé */
+.custom-snackbar {
+  background: linear-gradient(135deg, #2a4157, #00ffd5);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: slideIn 0.4s ease-out;
+}
+
+.custom-snackbar-warn {
+  background: linear-gradient(135deg, #f44336, #ff7961);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Animation fade-in */
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .cart-item-content {
     flex-direction: column;

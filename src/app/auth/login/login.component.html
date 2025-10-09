@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <h2>Se connecter</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email requis</mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Email invalide</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput formControlName="password" type="password" required>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Mot de passe requis</mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Minimum 6 caractères</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+
+    <a class="forgot-password" routerLink="/forgot-password">Mot de passe oublié ?</a>
+  </form>
+</div>

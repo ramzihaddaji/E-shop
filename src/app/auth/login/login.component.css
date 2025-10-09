@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+   background: linear-gradient(to bottom, #353232, var(--background-color));
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 30px;
+  background: rgb(215, 214, 214);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px var(--shadow-color);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.login-form h2 {
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+mat-form-field:hover {
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+mat-form-field .mat-form-field-outline {
+  border-radius: 8px;
+}
+
+mat-error {
+  animation: fadeIn 0.3s ease-in;
+  color: var(--error-color);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 24px;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  background: linear-gradient(to right, var(--primary-color), var(--primary-color));
+}
+
+button:hover {
+  transform: translateY(-3px) perspective(1000px) rotateX(5deg);
+  box-shadow: 0 6px 12px var(--shadow-color), 0 0 15px var(--glow-color);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.forgot-password {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.success-snackbar {
+  background: var(--success-color);
+  color: white;
+}
+
+.error-snackbar {
+  background: var(--error-color);
+  color: white;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    padding: 30px 20px;
+  }
+}

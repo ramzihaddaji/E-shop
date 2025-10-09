@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CartService } from '../../shared/cart.service';
 
 interface Product {
@@ -15,50 +16,58 @@ interface Product {
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatSnackBarModule],
   templateUrl: './catalogue.component.html',
-  styleUrls: ['./catalogue.component.css']
+  styleUrls: ['./catalogue.component.css'],
 })
-export class CatalogueComponent implements OnInit {
+export class CatalogueComponent implements OnInit, OnDestroy {
   categories = ['Tous', 'Robes', 'Jeans', 'T-Shirts'];
   selectedCategory = 'Tous';
 
-products: Product[] = [
-  { id: 1, name: 'Robe Fleurie', price: 59, image: 'assets/images/images.jpg', category: 'Robes' },
-  { id: 2, name: 'Jean Slim', price: 79, image: 'assets/images/images.jpg', category: 'Jeans' },
-  { id: 3, name: 'T-Shirt Blanc', price: 29, image: 'assets/images/images.jpg', category: 'T-Shirts' },
-  { id: 4, name: 'Robe Été', price: 69, image: 'assets/images/images.jpg', category: 'Robes' },
-  { id: 5, name: 'Jean Déchiré', price: 89, image: 'assets/images/images.jpg', category: 'Jeans' },
-];
-
+  products: Product[] = [
+    { id: 1, name: 'Robe Fleurie', price: 59, image: 'assets/images/images.jpg', category: 'Robes' },
+    { id: 2, name: 'Jean Slim', price: 79, image: 'assets/images/images.jpg', category: 'Jeans' },
+    { id: 3, name: 'T-Shirt Blanc', price: 29, image: 'assets/images/images.jpg', category: 'T-Shirts' },
+    { id: 4, name: 'Robe Été', price: 69, image: 'assets/images/images.jpg', category: 'Robes' },
+    { id: 5, name: 'Jean Déchiré', price: 89, image: 'assets/images/images.jpg', category: 'Jeans' },
+  ];
 
   featuredProducts = this.products.slice(0, 3);
-  currentSlide = 0;
+  currentAngle = 0;
+  autoRotate: any;
+  radius = 300;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.autoSlide();
+    this.startAutoRotate();
   }
 
-  // Slider automatique toutes les 3 secondes
-  autoSlide() {
-    setInterval(() => {
-      this.nextSlide();
-    }, 3000);
+  ngOnDestroy(): void {
+    clearInterval(this.autoRotate);
   }
 
-  nextSlide() {
-    this.currentSlide = (this.currentSlide + 1) % this.featuredProducts.length;
+  startAutoRotate() {
+    this.autoRotate = setInterval(() => {
+      this.rotate(1);
+    }, 4000);
   }
 
-  prevSlide() {
-    this.currentSlide =
-      (this.currentSlide - 1 + this.featuredProducts.length) % this.featuredProducts.length;
+  pauseRotate() {
+    clearInterval(this.autoRotate);
+  }
+
+  rotate(direction: number) {
+    this.currentAngle = (this.currentAngle + direction * (360 / this.featuredProducts.length)) % 360;
+  }
+
+  getCarouselTransform() {
+    return `translateZ(-${this.radius}px) rotateY(-${this.currentAngle}deg)`;
+  }
+
+  getSlideTransform(index: number) {
+    const angle = (360 / this.featuredProducts.length) * index;
+    return `rotateY(${angle}deg) translateZ(${this.radius}px)`;
   }
 
   filterCategory(category: string) {
@@ -67,11 +76,18 @@ products: Product[] = [
 
   get filteredProducts() {
     if (this.selectedCategory === 'Tous') return this.products;
-    return this.products.filter(p => p.category === this.selectedCategory);
+    return this.products.filter((p) => p.category === this.selectedCategory);
   }
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    alert(`${product.name} ajouté au panier`);
+
+    // Snackbar moderne avec animation
+    this.snackBar.open(`${product.name} ajouté au panier ✅`, 'Fermer', {
+      duration: 2500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar'],
+    });
   }
 }

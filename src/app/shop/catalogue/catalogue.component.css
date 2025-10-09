@@ -1,121 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+
+
+/*
 :root {
-  --primary-color: #2a4157; /* bleu */
-  --accent-color: #00ffd5;  /* orange */
-  --warn-color: #f44336;    /* rouge */
-  --background-color: #f9f9f9;
-  --text-color: #333;
+  --primary-color: #4d5358; 
+  --accent-color: #00ffd5; 
+  --background-color: #353232;
+  --text-color: #000000;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --glow-color: rgba(0, 255, 213, 0.3); 
 }
-
+*/
+/* Container */
 .catalogue-container {
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
-  background-color: var(--background-color);
+  background: linear-gradient(to bottom, #353232, var(--background-color)); /* Soft gradient for depth */
   color: var(--text-color);
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
 }
 
-/* Slider */
-.slider {
-  position: relative;
+/* --- 3D Slider --- */
+.slider-3d {
+  perspective: 1200px; /* Increased for more depth */
+  width: 80vw;
   max-width: 600px;
-  margin: 0 auto 40px;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
-.slides {
+  height: 400px;
+  margin: 0 auto 60px;
   position: relative;
-  transition: transform 0.5s ease-in-out;
 }
 
-.slides img {
+.carousel {
   width: 100%;
-  border-radius: 10px;
-  display: block;
-  animation: fadeIn 0.7s;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth bezier for fluid motion */
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px; /* Elegant rounded corners */
+  overflow: hidden;
+  box-shadow: 0 10px 25px var(--shadow-color);
+  background-color: #353232;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease; /* Subtle zoom on hover */
+}
+
+.slide:hover img {
+  transform: scale(1.05); /* Light zoom for engagement */
 }
 
 .slider-info {
   position: absolute;
-  bottom: 15px;
-  left: 0;
-  right: 0;
-  background: rgba(25, 118, 210, 0.8); /* primary-color avec opacité */
+  bottom: 0;
+  width: 100%;
+  background: rgba(var(--primary-color), 0.8); /* Harmonized with primary */
   color: white;
-  padding: 10px;
-  border-radius: 0 0 10px 10px;
+  padding: 15px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle text shadow for readability */
 }
 
-/* Animation fade-in */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-.nav-btn {
+.slider-control {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(25, 118, 210, 0.6); /* primary-color avec opacité */
-  color: white;
+  background: rgba(255, 255, 255, 0.8);
   border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 20px;
   border-radius: 50%;
-  transition: transform 0.2s, background 0.2s;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
-.nav-btn:hover {
-  transform: translateY(-50%) scale(1.2);
-  background: var(--accent-color); /* accent-color au hover */
+.slider-control:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
 }
 
-.nav-btn.left { left: 10px; }
-.nav-btn.right { right: 10px; }
+.prev {
+  left: -50px;
+}
 
-/* Catégories */
+.next {
+  right: -50px;
+}
+
+/* --- Categories --- */
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
 .categories button {
-  margin: 0 5px 10px 5px;
+  margin: 8px;
   font-weight: 500;
-  background-color: var(--accent-color);
-  color: white;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  border-radius: 24px; /* Pill-shaped for modern look */
+  padding: 10px 20px;
 }
 
 .categories button:hover {
-  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-.categories button[selected] {
-  background-color: var(--primary-color);
-}
-
-/* Produits */
+/* --- Products --- */
 .product-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 24px; /* Increased spacing for balance */
 }
 
 .product-card {
-  width: 200px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  width: 240px; /* Slightly wider for premium feel */
+  transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
   cursor: pointer;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Subtle initial shadow */
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  border-color: var(--primary-color);
+  transform: translateY(-10px) perspective(1000px) rotateX(2deg) rotateY(2deg); /* 3D tilt for depth */
+  box-shadow: 0 12px 24px var(--shadow-color), 0 0 20px var(--glow-color); /* Glow effect */
+  filter: brightness(1.05); /* Subtle light on hover */
 }
 
 .product-card img {
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
 
-.product-card img:hover {
-  transform: scale(1.05);
+.product-card:hover img {
+  transform: scale(1.03); /* Gentle zoom */
+}
+
+.product-card h3 {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.product-card p {
+  font-weight: 300;
+  color: var(--text-color);
+}
+
+.product-card button {
+  width: 100%;
+  border-radius: 0; /* Flat bottom for card integration */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .slider-3d {
+    width: 90vw;
+    height: 300px;
+  }
+
+  .radius { /* Note: radius is in TS, but for illustration */
+    --radius: 200px;
+  }
+
+  .prev {
+    left: 10px;
+  }
+
+  .next {
+    right: 10px;
+  }
+
+  .product-list {
+    gap: 16px;
+  }
+
+  .product-card {
+    width: calc(50% - 16px); /* Two columns on tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-3d {
+    height: 250px;
+  }
+
+  .product-card {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .categories button {
+    width: calc(50% - 16px);
+    margin: 8px;
+  }
 }
