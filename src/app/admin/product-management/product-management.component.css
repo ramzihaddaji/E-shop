@@ -1,0 +1,38 @@
+.product-management-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.product-form-card, .product-table-card {
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+/* Table style */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell, td.mat-cell {
+  text-align: left;
+  padding: 8px 12px;
+}

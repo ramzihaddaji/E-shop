@@ -4,14 +4,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CartService } from '../../shared/cart.service';
+import { ProductService } from '../../shared/product.service';
+import { Product } from '../../shared/models/product.model';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-}
 
 @Component({
   selector: 'app-catalogue',
@@ -24,27 +19,35 @@ export class CatalogueComponent implements OnInit, OnDestroy {
   categories = ['Tous', 'Robes', 'Jeans', 'T-Shirts'];
   selectedCategory = 'Tous';
 
-  products: Product[] = [
-    { id: 1, name: 'Robe Fleurie', price: 59, image: 'assets/images/images.jpg', category: 'Robes' },
-    { id: 2, name: 'Jean Slim', price: 79, image: 'assets/images/images.jpg', category: 'Jeans' },
-    { id: 3, name: 'T-Shirt Blanc', price: 29, image: 'assets/images/images.jpg', category: 'T-Shirts' },
-    { id: 4, name: 'Robe Été', price: 69, image: 'assets/images/images.jpg', category: 'Robes' },
-    { id: 5, name: 'Jean Déchiré', price: 89, image: 'assets/images/images.jpg', category: 'Jeans' },
-  ];
-
-  featuredProducts = this.products.slice(0, 3);
+  products: Product[] = [];
+  featuredProducts: Product[] = [];
   currentAngle = 0;
   autoRotate: any;
   radius = 300;
 
-  constructor(private cartService: CartService, private snackBar: MatSnackBar) {}
+  constructor(private cartService: CartService, private snackBar: MatSnackBar ,
+    private productService: ProductService) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
+    this.loadProducts();
     this.startAutoRotate();
   }
 
   ngOnDestroy(): void {
     clearInterval(this.autoRotate);
+  }
+
+  loadProducts() {
+    this.productService.getAll().subscribe({
+      next: (data) => {
+        this.products = data.map((product: any) => ({
+          ...product,
+          image: product.image ?? 'assets/images/images.jpg'
+        }));
+        this.featuredProducts = this.products.slice(0, 3);
+      },
+      error: (err) => console.error('Erreur chargement produits:', err),
+    });
   }
 
   startAutoRotate() {

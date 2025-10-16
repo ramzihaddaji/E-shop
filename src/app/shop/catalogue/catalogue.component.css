@@ -169,6 +169,19 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
+  .slide {
+  position: absolute;
+  width: 70%;
+  height: 100%;
+  border-radius: 16px; /* Elegant rounded corners */
+  overflow: hidden;
+  box-shadow: 0 10px 25px var(--shadow-color);
+  background-color: #353232;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+
   .slider-3d {
     width: 90vw;
     height: 300px;

@@ -6,9 +6,11 @@ import { CartService } from '../../shared/cart.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { MatSidenav, MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
+
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, MatButtonModule, MatBadgeModule, MatMenuModule, MatIconModule,RouterModule ],
+  imports: [MatToolbarModule, MatSidenav, MatSidenavContainer, MatSidenavModule, MatButtonModule, MatBadgeModule, MatMenuModule, MatIconModule,RouterModule ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'] 
 

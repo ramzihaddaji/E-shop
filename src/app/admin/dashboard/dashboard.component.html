@@ -1,1 +1,70 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Admin Panel</h2>
+    <nav>
+      <button mat-button routerLink="">Dashboard</button>
+      <button mat-button routerLink="products">Gestion Produits</button>
+      <button mat-button routerLink="/shop">Retour Boutique</button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1>Bienvenue dans le Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div class="stats-cards">
+      <mat-card class="stat-card">
+        <h3>Produits</h3>
+        <p>120</p>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <h3>Commandes</h3>
+        <p>75</p>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <h3>Revenus</h3>
+        <p>€12,500</p>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <h3>Utilisateurs</h3>
+        <p>450</p>
+      </mat-card>
+    </div>
+
+    <!-- Table produits -->
+    <mat-card class="table-card">
+      <h3>Produits récents</h3>
+      <table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+        <!-- Nom Produit -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nom </th>
+          <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+        </ng-container>
+
+        <!-- Prix -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Prix </th>
+          <td mat-cell *matCellDef="let product"> €{{product.price}} </td>
+        </ng-container>
+
+        <!-- Quantité -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Quantité </th>
+          <td mat-cell *matCellDef="let product"> {{product.quantity}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card>
+
+  </main>
+
+</div>
