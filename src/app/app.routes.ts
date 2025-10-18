@@ -7,6 +7,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { OrderSuccessComponent } from './shop/order-success/order-success.component';
+import { AdminOrdersComponent } from './admin/dashboard/admin-orders/admin-orders.component';
 
 export const routes: Routes = [
     {
@@ -20,10 +21,13 @@ export const routes: Routes = [
       { path: 'order-success', component: OrderSuccessComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'orders', component: AdminOrdersComponent },
       { path: 'admin', component: DashboardComponent },
+      
       {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    
   }
     ]
   }

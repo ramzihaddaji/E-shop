@@ -1,21 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../shared/cart.service';
 import { Router } from '@angular/router';
-
+import { CartService } from '../../shared/cart.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { OrderService } from '../../shared/order.service';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
 
 @Component({
   selector: 'app-checkout',
@@ -25,19 +17,17 @@ interface CartItem {
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-
-  cartItems: CartItem[] = [];
+  cartItems: any[] = [];
   total = 0;
 
-  user = {
-    name: '',
-    email: '',
-    address: '',
-    city: '',
-    postalCode: ''
-  };
+  user = { name: '', email: '', address: '', city: '', postalCode: '' };
 
-  constructor(private cartService: CartService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
@@ -46,25 +36,31 @@ export class CheckoutComponent implements OnInit {
 
   confirmOrder() {
     if (!this.user.name || !this.user.email || !this.user.address) {
-      // Snackbar moderne pour erreur
-      this.snackBar.open('Veuillez remplir tous les champs requis ⚠️', 'Fermer', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        panelClass: ['error-snackbar']
-      });
+      this.snackBar.open('Veuillez remplir tous les champs requis ⚠️', 'Fermer', { duration: 3000 });
       return;
     }
 
-    // Snackbar moderne pour succès
-    this.snackBar.open(`Merci ${this.user.name} ! Votre commande a été passée 🎉`, 'Fermer', {
-      duration: 4000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: ['success-snackbar']
-    });
+    const order = {
+      customerName: this.user.name,
+      customerEmail: this.user.email,
+      shippingAddress: `${this.user.address}, ${this.user.city}, ${this.user.postalCode}`,
+      items: this.cartItems.map(i => ({
+        productId: i.id,
+        productName: i.name,
+        price: i.price,
+        quantity: i.quantity
+      }))
+    };
 
-    this.cartService.clearCart();
-    this.router.navigate(['/shop']);
+    this.orderService.createOrder(order).subscribe({
+      next: (res) => {
+        this.cartService.clearCart();
+        this.router.navigate(['/order-success'], { state: { name: res.customerName, total: res.total } });
+      },
+      error: (err) => {
+        this.snackBar.open('Erreur lors de la commande ❌', 'Fermer', { duration: 3000 });
+        console.error(err);
+      }
+    });
   }
 }

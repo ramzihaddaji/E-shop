@@ -1,0 +1,51 @@
+<div class="admin-orders-container">
+  <h2>Gestion des commandes</h2>
+
+  <mat-card>
+    <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let order"> {{order.id}} </td>
+      </ng-container>
+
+      <!-- Client -->
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef> Client </th>
+        <td mat-cell *matCellDef="let order"> {{order.customerName}} </td>
+      </ng-container>
+
+      <!-- Total -->
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total (€) </th>
+        <td mat-cell *matCellDef="let order"> {{order.total}} </td>
+      </ng-container>
+
+      <!-- Date -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let order"> {{order.createdAt | date:'short'}} </td>
+      </ng-container>
+
+      <!-- Statut -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Statut </th>
+        <td mat-cell *matCellDef="let order"> {{order.status || 'PENDING'}} </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let order">
+          <button mat-button color="primary" (click)="acceptOrder(order.id)" [disabled]="order.status === 'ACCEPTED'">Accepter</button>
+          <button mat-button color="warn" (click)="rejectOrder(order.id)" [disabled]="order.status === 'REJECTED'">Rejeter</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+
+</div>
